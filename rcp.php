@@ -1,6 +1,6 @@
 <?php
 
-require_once(  __DIR__ . 'rcp/render/class.CharacterRender.php' );
+require_once(  __DIR__ . '/rcp/render/class.CharacterRender.php' );
 
 $chargen                 =  new CharacterRender();
 $chargen->action         =  CharacterRender::ACTION_READYFIGHT;
