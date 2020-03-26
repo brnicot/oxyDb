@@ -31,7 +31,7 @@ require_once( __ROOT__ . 'core/class.DB.php');
 
 
 // Set on the debug
-//Debug::enable();
+Debug::enable();
 
 
 

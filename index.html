@@ -57,7 +57,7 @@
         closeOnSelect: false,
         minimumInputLength: 3,
         ajax: {
-            url: 'http://127.0.0.1/db/search.php',
+            url: 'http://www.ro.geniks.fr/oxyDb/search.php',
             dataType: 'json',
             delay: 250,
             data: function (params) {
@@ -75,7 +75,7 @@
     });
 
     $('#item').on('select2:select', function (e) {
-        $.get( "http://127.0.0.1/db/getItem.php", { search: e.params.data.id } )
+        $.get( "http://www.ro.geniks.fr/oxyDb/getItem.php", { search: e.params.data.id } )
             .done(function( data ) {
                 $('#description').html(data.replace(/(?:\r\n|\r|\n)/g, '<br>'));
             });
