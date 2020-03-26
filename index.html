@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet"/>
+
+    <script src="HTMLRagnarokSpriteElement.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+</head>
+
+<body>
+
+<!--
+  <ragnarok-sprite src="³²_Samurai_Head.act"></ragnarok-sprite>
+  <script>
+    var alice = new HTMLRagnarokSpriteElement();
+    alice.src = "³²_Samurai_Head.act";
+    document.body.appendChild(alice);
+  </script>
+  -->
+
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <h1>Simple Database <a href="http://oxygene-online.org">Oxygene Online</a></h1>
+            <p class="lead">Demo craftée par Geniks </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <select id="item" style="width:300px"></select>
+        </div>
+        <div class="col-8" id="description">
+            -
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $('#item').select2({
+        theme: "classic",
+        closeOnSelect: false,
+        minimumInputLength: 3,
+        ajax: {
+            url: 'http://127.0.0.1/db/search.php',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    search: params.term,
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+
+    $('#item').on('select2:select', function (e) {
+        $.get( "http://127.0.0.1/db/getItem.php", { search: e.params.data.id } )
+            .done(function( data ) {
+                $('#description').html(data.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+            });
+    });
+
+</script>
+
+</body>
+</html>
